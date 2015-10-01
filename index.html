@@ -14,27 +14,12 @@
 </div>
 
 <p id="weather_display"></p>
-
-<script>
-var x = document.getElementById("weather_display");
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
-}
-</script>
+<p id="forecast"></p>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 <script src="app/jquery-2.1.4.js"></script>
 <script src="app/src/Thermostat.js"></script>
 <script src="app/public/application.js"></script>
-<script src="app/public/geo.js"></script>
+<script src="app/public/weather.js"></script>
 </body>
 </html>
