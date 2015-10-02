@@ -11,6 +11,9 @@ $(document).ready(function() {
         return '<img src=' + forecast_image + '>';
       });
 
+      // $('#userLocation').html(location);
+      // $('#userLocationTemp').html(temp_c + '℃');
+
       var forecast1 = parsed_json['forecast']['txt_forecast']['forecastday'][2]['fcttext_metric'];
       var forecast_day1 = parsed_json['forecast']['txt_forecast']['forecastday'][2]['title'];
       $('#forecast1').text(forecast_day1 + ': ' + forecast1);

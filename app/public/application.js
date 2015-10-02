@@ -29,17 +29,13 @@ $(document).ready(function() {
     $('#temperature_display').css('color', thermostat.energyRateColour);
   });
 
-
-
-
-
-  var urlCity = window.location.search.replace('?city=', '') || 'london';
+  var urlCity = window.location.search.replace('?city=', '') || 'London';
 
   $.ajax('http://api.openweathermap.org/data/2.5/weather?q={'+ urlCity +'}', {
     success: function(data) {
       // console.log(data);
-      var weathertemp = (data.main.temp - 273.15).toFixed(0) + '℃';
-      var weathername = data.name;
+      var weatherTemp = (data.main.temp - 273.15).toFixed(0) + '℃';
+      // var weathername = data.name;
       var lati = data.coord.lat;
       var long = data.coord.lon;
       var pos = {lat: lati, lng: long};
@@ -49,18 +45,13 @@ $(document).ready(function() {
         zoom: 7
       });
 
-        var infoWindow = new google.maps.InfoWindow({map: map2});
-        infoWindow.setPosition({lat: lati, lng: long});
-        infoWindow.setContent('Found');
-        map2.setCenter(pos);
+      var infoWindow = new google.maps.InfoWindow({map: map2});
+      infoWindow.setPosition({lat: lati, lng: long});
+      infoWindow.setContent('Found');
+      map2.setCenter(pos);
 
-        $('#userLocationTemp').html(weathertemp);
-        $('#userLocation').html(weathername);
+      $('#userLocationTemp').html(weatherTemp);
+      $('#userLocation').html(urlCity);
     }
   });
-
-
-
-
-
 });
