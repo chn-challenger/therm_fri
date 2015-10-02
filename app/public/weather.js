@@ -34,7 +34,7 @@ $(document).ready(function() {
       $('#forecast_image3').html(function() {
         return '<img src=' + forecast_image3 + '>';
       });
-      console.log(parsed_json);
+      // console.log(parsed_json);
     }
   });
 });

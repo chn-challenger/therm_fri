@@ -4,7 +4,8 @@
   "description": "The project this week is to create a simple digital thermostat, using JavaScript, test-driven with Jasmine and using jQuery to interact with the HTML page. There are 2 parts to this project:",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
