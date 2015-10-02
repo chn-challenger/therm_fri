@@ -1,29 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head style="font-family">
   <meta charset="utf-8">
   <title>Thermostat</title>
+  <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 10px;
+      }
+      #map {
+        height: 100%;
+        width: 50%;
+        float: right;
+      }
+    </style>
 </head>
 <body style="font-family: helvetica">
-<h1><span id="temperature_display"></span>℃</h1>
-<button type="button" id="increase_button">+</button>
-<button type="button" id="decrease_button">-</button>
-<button type="button" id="reset_button">RESET</button><br><br>
-<div style="font-size: 15px"><input type="checkbox" id='power_saving_mode' name="power_saving_mode" checked>
-  Power Saving Mode
-</div>
+  <div style="float: left; width: 40%;">
+    <h1><span id="temperature_display"></span>℃</h1>
+      <button type="button" id="increase_button">+</button>
+      <button type="button" id="decrease_button">-</button>
+      <button type="button" id="reset_button">RESET</button><br><br>
+      <div style="font-size: 15px">
+        <input type="checkbox" id='power_saving_mode' name="power_saving_mode" checked>Power Saving Mode
+      </div>
+    <p id="weather_display"></p>
+    <p id='forecast_image'></p>
+    <p id="forecast1"></p>
+    <p id='forecast_image1'></p>
+    <p id="forecast2"></p>
+    <p id='forecast_image2'></p>
+  </div>
 
-<p id="weather_display"></p>
-<p id='forecast_image'></p>
-<p id="forecast1"></p>
-<p id='forecast_image1'></p>
-<p id="forecast2"></p>
-<p id='forecast_image2'></p>
+  <div style="float: right; width: 50%; height: 80%">
+    <div style="display: inline-block; width: 100%">
+    <h2 id="userLocation">Location: Hong Kong</h2>
+    <h2 id="userLocationTemp">25℃</h2>
+    <form action="/">
+      <input type="text" name="city">
+      <input type="submit" value="Find Location">
+    </form>
+  </div>
+  <div style="display: inline-block; width: 100%; height: 10px;"></div>
+    <div id="map" style="display: inline-block; width: 100%; height: 80%;"></div>
+  </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-<script src="app/jquery-2.1.4.js"></script>
-<script src="app/src/Thermostat.js"></script>
-<script src="app/public/application.js"></script>
-<script src="app/public/weather.js"></script>
+  <script>
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 10
+      });
+    }
+  </script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script src="app/jquery-2.1.4.js"></script>
+  <script src="app/src/Thermostat.js"></script>
+  <script src="app/public/application.js"></script>
+  <script src="app/public/weather.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZUyqO4SDKafDtGenToP9xDspVKzLLSck&callback=initMap"
+      async defer>
+  </script>
 </body>
 </html>

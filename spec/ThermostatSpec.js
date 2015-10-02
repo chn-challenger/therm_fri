@@ -1,96 +1,96 @@
-describe('Thermostat', function() {
+describe("Thermostat", function() {
   var thermostat;
 
   beforeEach(function() {
     thermostat = new Thermostat();
   });
 
-  it('has an initial value of 20', function() {
-    expect(thermostat.temperature).toEqual(20);
-  });
-
-  describe('up button', function() {
-
-    it('will increase the temperature by one', function() {
-      thermostat.increaseTemp();
-      expect(thermostat.temperature).toBe(21);
+  describe("Temperature", function() {
+    it("should have a default of 20", function() {
+      expect(thermostat.temp).toBe(20)
     });
 
-  });
-
-  describe('down button', function() {
-
-    it('will decrease the temperature by one', function() {
-      thermostat.decreaseTemp();
-      expect(thermostat.temperature).toBe(19);
+    it("should have a minimum of 10", function() {
+      expect(thermostat.minTemp).toBe(10)
     });
 
-    it('will not decrease temperature below 10 degrees', function() {
-      thermostat.temperature = 10;
-      expect(thermostat.decreaseTemp).toThrowError('Too chilly in here');
-    });
-  });
-
-  describe('power saving mode,', function() {
-    describe('when switched on', function() {
-
-      it('activates power saving mode', function() {
-        thermostat.powerSavingOn();
-        expect(thermostat.isPowerSaving).toBe(true);
-      });
-
-      it('will not allow the temperature to increase above 25 degrees', function() {
-        thermostat.temperature = 25;
-        expect(function() { thermostat.increaseTemp(); }).toThrowError('Above 25 degrees not available in power saving mode');
-      });
-
-      it('will reset the temperature to 25 degrees, if current temperature is higher', function() {
-        thermostat.isPowerSaving = false;
-        thermostat.temperature = 32;
-        thermostat.powerSavingOn();
-        expect(thermostat.temperature).toEqual(25);
-      });
+    it("should have power saver mode on automatically", function() {
+      expect(thermostat.powerSaver).toEqual(true)
     });
 
-    describe('when switched off', function() {
+    it("can be increased by one", function() {
+      thermostat.turnUpTemp();
+      expect(thermostat.temp).toBe(21)
+    });
 
-      it('deactivates power saving mode', function() {
-        thermostat.powerSavingOff();
-        expect(thermostat.isPowerSaving).toBe(false);
-      });
+    it("can be decreased by one", function() {
+      thermostat.turnDownTemp();
+      expect(thermostat.temp).toBe(19)
+    });
 
-      it('will not allow the temperature to increase above 32 degrees', function() {
-        thermostat.isPowerSaving = false;
-        thermostat.temperature = 32;
-        expect(thermostat.increaseTemp).toThrowError('Above 32 degrees not possible');
-      });
+    it("cannot be increased by one if max reached", function() {
+      for(var i=0; i <= 4; i++) {
+        thermostat.turnUpTemp();
+      }
+      expect(function(){thermostat.turnUpTemp();}).toThrowError("Max Temp Reached");
+    });
+
+    it("cannot be decreased by one if min reached", function() {
+      for(var i=0; i <= 9; i++) {
+        thermostat.turnDownTemp();
+      }
+      expect(function(){thermostat.turnDownTemp();}).toThrowError("Min Temp Reached");
+    });
+
+    it("can be reset", function() {
+      thermostat.turnDownTemp();
+      thermostat.resetTemp();
+      expect(thermostat.temp).toBe(20)
     });
   });
 
-  describe('reset button', function() {
-    it('returns the temperature to 20 degrees', function() {
-      thermostat.temperature = 21;
-      thermostat.reset();
-      expect(thermostat.temperature).toEqual(20);
+  describe("Power Saver Mode", function() {
+    it("can be switched off", function() {
+      thermostat.powerSaverToggle();
+      expect(thermostat.powerSaver).toEqual(false)
+    });
+
+    it("power saver mode can be switched back on", function() {
+      thermostat.powerSaverToggle();
+      thermostat.powerSaverToggle();
+      expect(thermostat.powerSaver).toEqual(true)
+    });
+
+    it("should have max temp of 25 when on", function() {
+      expect(thermostat.maxTemp).toBe(25)
+    });
+
+    it("should have a max temp of 32 when off", function() {
+      thermostat.powerSaverToggle();
+      expect(thermostat.maxTemp).toBe(32)
     });
   });
 
-  describe('display color', function() {
-    it('is high if temperature is 25', function() {
-      thermostat.temperature = 24;
-      thermostat.increaseTemp();
-      expect(thermostat.colour).toEqual('orangered');
+  describe("Energy Rating Colour", function() {
+    it("should be Green when temp is less than 20", function() {
+      for(var i=0; i <= 5; i++) {
+        thermostat.turnDownTemp();
+      }
+      thermostat.checkEnergyRate();
+      expect(thermostat.energyRateColour).toBe("olivedrab")
     });
 
-    it('is low if temperature is 17', function() {
-      thermostat.temperature = 18;
-      thermostat.decreaseTemp();
-      expect(thermostat.colour).toEqual('olivedrab');
+    it("should be Yellow when temp is less than 26", function() {
+      expect(thermostat.energyRateColour).toBe("gold")
     });
 
-    it('is medium if temperature is 21', function() {
-      thermostat.increaseTemp();
-      expect(thermostat.colour).toEqual('gold');
+    it("should be Red when temp is more than 25", function() {
+      thermostat.powerSaverToggle();
+      for(var i=0; i <= 6; i++) {
+        thermostat.turnUpTemp();
+      }
+      thermostat.checkEnergyRate();
+      expect(thermostat.energyRateColour).toBe("orangered")
     });
   });
 });
