@@ -70,7 +70,7 @@ $(document).ready(function() {
       if (urlCity) {
 
       } else {
-        $('#userLocationTemp').html(temp_c);
+        $('#userLocationTemp').html(temp_c + '℃');
         $('#userLocation').html(location);
       };
     }
@@ -95,7 +95,7 @@ $(document).ready(function() {
          infoWindow.setContent('Found');
          map1.setCenter(pos);
 
-         $('#userLocationTemp').html(weathertemp);
+         $('#userLocationTemp').html(weathertemp + '℃');
          $('#userLocation').html(weathername);
 
      } else {
