@@ -37,7 +37,7 @@
     <div style="display: inline-block; width: 100%">
     <h2 id="userLocation"></h2>
     <h2 id="userLocationTemp"></h2>
-    <form>
+    <form action="/">
       <input type="text" name="city">
       <input type="submit" value="Find Location">
     </form>
@@ -53,26 +53,11 @@
     //     zoom: 10
     //   });
     // }
-    // function initMap(){};
+    function initMap(){};
 
-    function initMap() {
-      var map1 = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 19
-      });
-      var infoWindow = new google.maps.InfoWindow({map: map1});
+    // function initMap() {
 
-       navigator.geolocation.getCurrentPosition(function(position) {
-         var pos = {
-           lat: position.coords.latitude,
-           lng: position.coords.longitude
-         };
-
-         infoWindow.setPosition(pos);
-         infoWindow.setContent('Found');
-         map1.setCenter(pos);
-       });
-    };
+    // };
 
 
   </script>
@@ -84,7 +69,7 @@
       async defer>
   </script>
   <script src="app/public/application.js"></script>
-  <script src="app/public/weather.js"></script>
+  <!-- <script src="app/public/weather.js"></script> -->
 
 </body>
 </html>
